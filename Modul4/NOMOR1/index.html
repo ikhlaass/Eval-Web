@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Pilih Warna</title>
+    <style>
+      body {
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Pilih Warna Latar</h2>
+
+    <div>
+      <label
+        ><input
+          type="radio"
+          name="warna"
+          value="red"
+          onclick="ubahWarna(this.value)"
+        />
+        Merah</label
+      >
+      <label
+        ><input
+          type="radio"
+          name="warna"
+          value="green"
+          onclick="ubahWarna(this.value)"
+        />
+        Hijau</label
+      >
+      <label
+        ><input
+          type="radio"
+          name="warna"
+          value="blue"
+          onclick="ubahWarna(this.value)"
+        />
+        Biru</label
+      >
+    </div>
+
+    <br />
+
+    <div>
+      <label for="dropdownWarna">Atau pilih dari dropdown: </label>
+      <select id="dropdownWarna" onchange="ubahWarna(this.value)">
+        <option value="">--Pilih Warna--</option>
+        <option value="yellow">Kuning</option>
+        <option value="purple">Ungu</option>
+        <option value="orange">Oranye</option>
+      </select>
+    </div>
+
+    <script>
+      function ubahWarna(warna) {
+        if (warna) {
+          document.body.style.backgroundColor = warna;
+        }
+      }
+    </script>
+  </body>
+</html>
