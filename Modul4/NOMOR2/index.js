@@ -18,5 +18,5 @@ document.getElementById("biodataForm").addEventListener("submit", function (e) {
           <p>Alamat: ${alamat}</p>
         `;
 
-  document.getElementById("dataOutput").innerHTML = output;
+  document.getElementById("dataOutput").innerHTML += output;
 });
