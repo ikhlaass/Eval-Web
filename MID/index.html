@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form Data Mahasiswa</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Montserrat:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg-primary: linear-gradient(135deg, #e6f0fa 0%, #f4f9ff 100%);
+        --card-bg: #ffffff;
+        --text-primary: #2d3748;
+        --text-secondary: #6b7280;
+        --accent-primary: #2ecc71;
+        --accent-secondary: #1a4971;
+        --input-border: #d1d5db;
+        --input-focus: #2ecc71;
+        --button-hover: #27ae60;
+        --header-bg: #1a4971;
+        --shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        --error-color: #e74c3c;
+      }
+
+      [data-theme="dark"] {
+        --bg-primary: linear-gradient(135deg, #1f2a44 0%, #2d3b55 100%);
+        --card-bg: #2d3748;
+        --text-primary: #e2e8f0;
+        --text-secondary: #a0aec0;
+        --accent-primary: #26de81;
+        --accent-secondary: #4d7c9f;
+        --input-border: #4a5568;
+        --input-focus: #26de81;
+        --button-hover: #20bf6b;
+        --header-bg: #1e2a3c;
+        --shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        --error-color: #ff6b6b;
+      }
+
+      body {
+        background: var(--bg-primary);
+        font-family: "Poppins", sans-serif;
+        color: var(--text-primary);
+        min-height: 100vh;
+        margin: 0;
+        transition: all 0.3s ease;
+      }
+
+      .container {
+        margin-top: 40px;
+        max-width: 1000px;
+        padding: 0 20px;
+      }
+
+      .theme-toggle {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1000;
+      }
+
+      .theme-toggle input {
+        display: none;
+      }
+
+      .theme-toggle label {
+        display: flex;
+        align-items: center;
+        width: 60px;
+        height: 30px;
+        background: var(--text-secondary);
+        border-radius: 50px;
+        position: relative;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .theme-toggle label::after {
+        content: "";
+        width: 24px;
+        height: 24px;
+        background: #fff;
+        border-radius: 50%;
+        position: absolute;
+        left: 3px;
+        transition: all 0.3s ease;
+      }
+
+      .theme-toggle input:checked + label {
+        background: var(--accent-primary);
+      }
+
+      .theme-toggle input:checked + label::after {
+        left: 33px;
+      }
+
+      .header {
+        background: var(--header-bg);
+        color: #ffffff;
+        padding: 25px;
+        text-align: center;
+        border-radius: 16px 16px 0 0;
+        box-shadow: var(--shadow);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .header::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url("https://www.transparenttextures.com/patterns/45-degree-fabric-light.png");
+        opacity: 0.1;
+      }
+
+      .header img {
+        max-width: 120px;
+        margin-bottom: 15px;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+      }
+
+      .header h1 {
+        font-family: "Montserrat", sans-serif;
+        font-size: 2.2rem;
+        font-weight: 700;
+        margin: 0;
+      }
+
+      .card {
+        background: var(--card-bg);
+        border-radius: 0 0 16px 16px;
+        padding: 40px;
+        box-shadow: var(--shadow);
+        border-top: 5px solid var(--accent-primary);
+        transition: all 0.3s ease;
+      }
+
+      h2 {
+        font-family: "Montserrat", sans-serif;
+        font-size: 2rem;
+        color: var(--accent-secondary);
+        text-align: center;
+        margin-bottom: 15px;
+        font-weight: 700;
+      }
+
+      p {
+        text-align: center;
+        color: var(--text-secondary);
+        font-size: 1.1rem;
+        margin-bottom: 30px;
+      }
+
+      .nav-tabs {
+        border-bottom: none;
+        justify-content: center;
+        margin-bottom: 40px;
+      }
+
+      .nav-tabs .nav-link {
+        border: none;
+        border-radius: 50px;
+        color: var(--accent-secondary);
+        font-weight: 600;
+        padding: 12px 30px;
+        margin: 0 15px;
+        transition: all 0.3s ease;
+      }
+
+      .nav-tabs .nav-link:hover {
+        background: var(--input-border);
+        color: var(--text-primary);
+      }
+
+      .nav-tabs .nav-link.active {
+        background: var(--accent-primary);
+        color: #ffffff;
+      }
+
+      .form-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+      }
+
+      .form-group {
+        position: relative;
+        margin-bottom: 20px;
+      }
+
+      .form-group.full-width {
+        grid-column: 1 / -1;
+      }
+
+      .form-label {
+        font-weight: 600;
+        color: var(--accent-secondary);
+        margin-bottom: 8px;
+        display: block;
+      }
+
+      .form-control,
+      .form-select {
+        border-radius: 12px;
+        border: 1px solid var(--input-border);
+        padding: 12px;
+        font-size: 1rem;
+        background: var(--card-bg);
+        color: var(--text-primary);
+        transition: all 0.3s ease;
+        width: 100%;
+      }
+
+      .form-control:focus,
+      .form-select:focus {
+        border-color: var(--input-focus);
+        box-shadow: 0 0 10px rgba(46, 204, 113, 0.3);
+        outline: none;
+      }
+
+      .form-control:invalid:not(:placeholder-shown),
+      .form-select:invalid:not(:placeholder-shown) {
+        border-color: var(--error-color);
+      }
+
+      .form-control:valid,
+      .form-select:valid {
+        border-color: var(--accent-primary);
+      }
+
+      textarea.form-control {
+        resize: vertical;
+        min-height: 100px;
+        padding: 12px;
+      }
+
+      .error-message {
+        color: var(--error-color);
+        font-size: 0.85rem;
+        margin-top: 5px;
+        display: none;
+      }
+
+      .form-control:invalid:not(:placeholder-shown) ~ .error-message,
+      .form-select:invalid:not(:placeholder-shown) ~ .error-message {
+        display: block;
+      }
+
+      .btn-primary {
+        background: var(--accent-primary);
+        border: none;
+        padding: 12px;
+        border-radius: 12px;
+        font-weight: 600;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+      }
+
+      .btn-primary:hover {
+        background: var(--button-hover);
+        transform: translateY(-3px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      }
+
+      .btn-secondary {
+        background: var(--text-secondary);
+        border: none;
+        padding: 12px;
+        border-radius: 12px;
+        font-weight: 600;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+      }
+
+      .btn-secondary:hover {
+        background: var(--input-border);
+        transform: translateY(-3px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      }
+
+      .tab-pane {
+        padding: 20px;
+        animation: fadeIn 0.5s ease;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .rt-rw-group {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+      }
+
+      .search-group {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          margin-top: 20px;
+          padding: 0 15px;
+        }
+
+        .header h1 {
+          font-size: 1.8rem;
+        }
+
+        .header img {
+          max-width: 80px;
+        }
+
+        .card {
+          padding: 20px;
+        }
+
+        .nav-tabs .nav-link {
+          padding: 10px 20px;
+          margin: 0 5px;
+          font-size: 0.9rem;
+        }
+
+        .theme-toggle {
+          top: 15px;
+          right: 15px;
+        }
+
+        .form-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .form-control,
+        .form-select,
+        textarea.form-control {
+          padding: 10px;
+        }
+
+        .search-group {
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="theme-toggle">
+      <input type="checkbox" id="themeSwitch" aria-label="Toggle theme" />
+      <label for="themeSwitch"></label>
+    </div>
+
+    <div class="container">
+      <div class="header">
+        <img src="LogoFikom_HitamKuning (1).png" alt="Campus Logo" />
+        <h1>Form Data Mahasiswa</h1>
+      </div>
+      <div class="card">
+        <h2>Input Data Mahasiswa</h2>
+        <p>
+          Masukkan data dengan teliti. Segera laporkan kesalahan kepada admin
+          kampus.
+        </p>
+
+        <!-- Kolom pencarian -->
+        <div class="search-group">
+          <input
+            type="text"
+            class="form-control"
+            id="searchNIM"
+            placeholder="Masukkan NIM untuk mencari"
+            pattern="\d{11}"
+            onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))"
+            maxlength="11"
+            aria-describedby="searchNIM-error"
+          />
+          <button type="button" onclick="cariData()" class="btn btn-primary">
+            Cari
+          </button>
+        </div>
+        <div id="searchNIM-error" class="error-message">
+          NIM harus 11 digit angka.
+        </div>
+
+        <ul class="nav nav-tabs" id="formTabs" role="tablist">
+          <li class="nav-item" role="presentation">
+            <a
+              class="nav-link active"
+              id="dataPribadi-tab"
+              data-bs-toggle="tab"
+              href="#dataPribadi"
+              role="tab"
+              aria-controls="dataPribadi"
+              aria-selected="true"
+              >Data Pribadi</a
+            >
+          </li>
+          <li class="nav-item" role="presentation">
+            <a
+              class="nav-link"
+              id="dataMahasiswa-tab"
+              data-bs-toggle="tab"
+              href="#dataMahasiswa"
+              role="tab"
+              aria-controls="dataMahasiswa"
+              aria-selected="false"
+              >Data Mahasiswa</a
+            >
+          </li>
+        </ul>
+
+        <div class="tab-content" id="formTabsContent">
+          <div
+            class="tab-pane fade show active"
+            id="dataPribadi"
+            role="tabpanel"
+            aria-labelledby="dataPribadi-tab"
+          >
+            <form id="formMahasiswa" class="form-grid">
+              <div class="form-group">
+                <label for="nim" class="form-label">NIM</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="nim"
+                  placeholder="Masukkan NIM"
+                  required
+                  pattern="\d{11}"
+                  onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))"
+                  maxlength="11"
+                  aria-describedby="nim-error"
+                />
+                <div id="nim-error" class="error-message">
+                  NIM harus 11 digit angka.
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="nama" class="form-label">Nama</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="nama"
+                  placeholder="Masukkan Nama Lengkap"
+                  required
+                  onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || event.charCode == 32)"
+                  aria-describedby="nama-error"
+                />
+                <div id="nama-error" class="error-message">
+                  Nama tidak boleh kosong.
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="tempatLahir" class="form-label">Tempat Lahir</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="tempatLahir"
+                  placeholder="Masukkan Tempat Lahir"
+                  required
+                  onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || event.charCode == 32)"
+                  aria-describedby="tempatLahir-error"
+                />
+                <div id="tempatLahir-error" class="error-message">
+                  Tempat lahir tidak boleh kosong.
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="tanggalLahir" class="form-label"
+                  >Tanggal Lahir</label
+                >
+                <input
+                  type="date"
+                  class="form-control"
+                  id="tanggalLahir"
+                  required
+                  aria-describedby="tanggalLahir-error"
+                />
+                <div id="tanggalLahir-error" class="error-message">
+                  Tanggal lahir harus diisi.
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="jenisKelamin" class="form-label"
+                  >Jenis Kelamin</label
+                >
+                <select
+                  class="form-select"
+                  id="jenisKelamin"
+                  required
+                  aria-describedby="jenisKelamin-error"
+                >
+                  <option selected disabled value="">
+                    Pilih Jenis Kelamin
+                  </option>
+                  <option value="L">Laki-laki</option>
+                  <option value="P">Perempuan</option>
+                </select>
+                <div id="jenisKelamin-error" class="error-message">
+                  Jenis kelamin harus dipilih.
+                </div>
+              </div>
+
+              <div class="form-group full-width">
+                <label for="namaIbu" class="form-label">Nama Ibu</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="namaIbu"
+                  placeholder="Masukkan Nama Ibu"
+                  required
+                  onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || event.charCode == 32)"
+                  aria-describedby="namaIbu-error"
+                />
+                <div id="namaIbu-error" class="error-message">
+                  Nama ibu tidak boleh kosong.
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <div
+            class="tab-pane fade"
+            id="dataMahasiswa"
+            role="tabpanel"
+            aria-labelledby="dataMahasiswa-tab"
+          >
+            <form id="formDataMahasiswa" class="form-grid">
+              <div class="form-group">
+                <label for="nik" class="form-label">NIK</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="nik"
+                  placeholder="Masukkan NIK sesuai KTP/KK"
+                  required
+                  pattern="\d{16}"
+                  onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))"
+                  maxlength="16"
+                  aria-describedby="nik-error"
+                />
+                <div id="nik-error" class="error-message">
+                  NIK harus 16 digit angka.
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="nisn" class="form-label">NISN</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="nisn"
+                  placeholder="Masukkan NISN"
+                  required
+                  pattern="\d{10}"
+                  onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))"
+                  maxlength="10"
+                  aria-describedby="nisn-error"
+                />
+                <div id="nisn-error" class="error-message">
+                  NISN harus 10 digit angka.
+                </div>
+              </div>
+
+              <div class="form-group full-width">
+                <label for="alamat" class="form-label">Alamat</label>
+                <textarea
+                  class="form-control"
+                  id="alamat"
+                  rows="3"
+                  placeholder="Masukkan Alamat Lengkap"
+                  required
+                  aria-describedby="alamat-error"
+                ></textarea>
+                <div id="alamat-error" class="error-message">
+                  Alamat tidak boleh kosong.
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="propinsi" class="form-label">Propinsi</label>
+                <select
+                  class="form-select"
+                  id="propinsi"
+                  required
+                  aria-describedby="propinsi-error"
+                >
+                  <option selected disabled value="">Pilih Propinsi</option>
+                  <option value="Jawa Barat">Jawa Barat</option>
+                  <option value="Jawa Timur">Jawa Timur</option>
+                  <option value="DKI Jakarta">DKI Jakarta</option>
+                </select>
+                <div id="propinsi-error" class="error-message">
+                  Propinsi harus dipilih.
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="kabKota" class="form-label">Kabupaten/Kota</label>
+                <select
+                  class="form-select"
+                  id="kabKota"
+                  required
+                  aria-describedby="kabKota-error"
+                >
+                  <option selected disabled value="">Pilih Kab/Kota</option>
+                </select>
+                <div id="kabKota-error" class="error-message">
+                  Kabupaten/Kota harus dipilih.
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="kecamatan" class="form-label">Kecamatan</label>
+                <select
+                  class="form-select"
+                  id="kecamatan"
+                  required
+                  aria-describedby="kecamatan-error"
+                >
+                  <option selected disabled value="">Pilih Kecamatan</option>
+                </select>
+                <div id="kecamatan-error" class="error-message">
+                  Kecamatan harus dipilih.
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="kelurahan" class="form-label">Kelurahan/Desa</label>
+                <select
+                  class="form-select"
+                  id="kelurahan"
+                  required
+                  aria-describedby="kelurahan-error"
+                >
+                  <option selected disabled value="">
+                    Pilih Kelurahan/Desa
+                  </option>
+                </select>
+                <div id="kelurahan-error" class="error-message">
+                  Kelurahan/Desa harus dipilih.
+                </div>
+              </div>
+
+              <div class="form-group rt-rw-group full-width">
+                <div class="form-group">
+                  <label for="rt" class="form-label">RT</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="rt"
+                    placeholder="Masukkan RT"
+                    required
+                    pattern="\d{1,3}"
+                    onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))"
+                    maxlength="3"
+                    aria-describedby="rt-error"
+                  />
+                  <div id="rt-error" class="error-message">
+                    RT harus berupa angka (1-3 digit).
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="rw" class="form-label">RW</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="rw"
+                    placeholder="Masukkan RW"
+                    required
+                    pattern="\d{1,3}"
+                    onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))"
+                    maxlength="3"
+                    aria-describedby="rw-error"
+                  />
+                  <div id="rw-error" class="error-message">
+                    RW harus berupa angka (1-3 digit).
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="kodePos" class="form-label">Kode Pos</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="kodePos"
+                  placeholder="Masukkan Kode Pos"
+                  required
+                  pattern="\d{5}"
+                  onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))"
+                  maxlength="5"
+                  aria-describedby="kodePos-error"
+                />
+                <div id="kodePos-error" class="error-message">
+                  Kode pos harus 5 digit angka.
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="jenisTinggal" class="form-label"
+                  >Jenis Tinggal</label
+                >
+                <select
+                  class="form-select"
+                  id="jenisTinggal"
+                  required
+                  aria-describedby="jenisTinggal-error"
+                >
+                  <option selected disabled value="">
+                    Pilih Jenis Tinggal
+                  </option>
+                  <option value="Rumah Pribadi">Rumah Pribadi</option>
+                  <option value="Kontrak">Kontrak</option>
+                  <option value="Kos">Kos</option>
+                </select>
+                <div id="jenisTinggal-error" class="error-message">
+                  Jenis tinggal harus dipilih.
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="alatTransportasi" class="form-label"
+                  >Alat Transportasi</label
+                >
+                <select
+                  class="form-select"
+                  id="alatTransportasi"
+                  required
+                  aria-describedby="alatTransportasi-error"
+                >
+                  <option selected disabled value="">
+                    Pilih Alat Transportasi
+                  </option>
+                  <option value="Sepeda">Sepeda</option>
+                  <option value="Motor">Motor</option>
+                  <option value="Mobil">Mobil</option>
+                  <option value="Angkutan Umum">Angkutan Umum</option>
+                </select>
+                <div id="alatTransportasi-error" class="error-message">
+                  Alat transportasi harus dipilih.
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="golonganDarah" class="form-label"
+                  >Golongan Darah</label
+                >
+                <select
+                  class="form-select"
+                  id="golonganDarah"
+                  required
+                  aria-describedby="golonganDarah-error"
+                >
+                  <option selected disabled value="">
+                    Pilih Golongan Darah
+                  </option>
+                  <option value="A">A</option>
+                  <option value="B">B</option>
+                  <option value="O">O</option>
+                  <option value="AB">AB</option>
+                </select>
+                <div id="golonganDarah-error" class="error-message">
+                  Golongan darah harus dipilih.
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="agama" class="form-label">Agama</label>
+                <select
+                  class="form-select"
+                  id="agama"
+                  required
+                  aria-describedby="agama-error"
+                >
+                  <option selected disabled value="">Pilih Agama</option>
+                  <option value="Islam">Islam</option>
+                  <option value="Kristen">Kristen</option>
+                  <option value="Katholik">Katholik</option>
+                  <option value="Hindu">Hindu</option>
+                  <option value="Buddha">Buddha</option>
+                  <option value="Konghucu">Konghucu</option>
+                </select>
+                <div id="agama-error" class="error-message">
+                  Alfian Yudha Pratama
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Theme Persistence
+      const themeSwitch = document.getElementById("themeSwitch");
+      const savedTheme = localStorage.getItem("theme") || "light";
+      document.body.setAttribute("data-theme", savedTheme);
+      themeSwitch.checked = savedTheme === "dark";
+      themeSwitch.addEventListener("change", () => {
+        const theme = themeSwitch.checked ? "dark" : "light";
+        document.body.setAttribute("data-theme", theme);
+        localStorage.setItem("theme", theme);
+      });
+
+      // Simpan data mahasiswa (menggunakan localStorage untuk contoh)
+      let mahasiswaData =
+        JSON.parse(localStorage.getItem("mahasiswaData")) || [];
+
+      // Form Reset
+      function resetForm() {
+        document.getElementById("formMahasiswa").reset();
+        document.getElementById("formDataMahasiswa").reset();
+        document.getElementById("searchNIM").value = "";
+        const kabKotaSelect = document.getElementById("kabKota");
+        const kecamatanSelect = document.getElementById("kecamatan");
+        const kelurahanSelect = document.getElementById("kelurahan");
+        kabKotaSelect.innerHTML =
+          '<option selected disabled value="">Pilih Kab/Kota</option>';
+        kecamatanSelect.innerHTML =
+          '<option selected disabled value="">Pilih Kecamatan</option>';
+        kelurahanSelect.innerHTML =
+          '<option selected disabled value="">Pilih Kelurahan/Desa</option>';
+        kabKotaSelect.disabled = true;
+        kecamatanSelect.disabled = true;
+        kelurahanSelect.disabled = true;
+        document
+          .querySelectorAll(".error-message")
+          .forEach((el) => (el.style.display = "none"));
+      }
+
+      // Panggil resetForm saat halaman dimuat untuk memastikan form bersih
+      document.addEventListener("DOMContentLoaded", () => {
+        resetForm();
+      });
+
+      // Dynamic Location Dropdowns
+      const locationData = {
+        "Jawa Barat": {
+          Bandung: {
+            Cidadap: ["Cimahi"],
+            Sukajadi: ["Sukamaju"],
+          },
+          Bogor: {
+            "Bogor Selatan": ["Bondongan"],
+          },
+        },
+        "Jawa Timur": {
+          Surabaya: {
+            Tegalsari: ["Kedungdoro"],
+            Genteng: ["Embong Kaliasin"],
+          },
+        },
+        "DKI Jakarta": {
+          Jakarta: {
+            "Kebayoran Baru": ["Kebayoran Lama"],
+            Tebet: ["Cempaka Putih"],
+          },
+        },
+      };
+
+      const propinsiSelect = document.getElementById("propinsi");
+      const kabKotaSelect = document.getElementById("kabKota");
+      const kecamatanSelect = document.getElementById("kecamatan");
+      const kelurahanSelect = document.getElementById("kelurahan");
+
+      propinsiSelect.addEventListener("change", () => {
+        const propinsi = propinsiSelect.value;
+        kabKotaSelect.innerHTML =
+          '<option selected disabled value="">Pilih Kab/Kota</option>';
+        kecamatanSelect.innerHTML =
+          '<option selected disabled value="">Pilih Kecamatan</option>';
+        kelurahanSelect.innerHTML =
+          '<option selected disabled value="">Pilih Kelurahan/Desa</option>';
+        kabKotaSelect.disabled = true;
+        kecamatanSelect.disabled = true;
+        kelurahanSelect.disabled = true;
+
+        if (propinsi && locationData[propinsi]) {
+          for (const kabKota in locationData[propinsi]) {
+            const option = document.createElement("option");
+            option.value = kabKota;
+            option.textContent = kabKota;
+            kabKotaSelect.appendChild(option);
+          }
+          kabKotaSelect.disabled = false;
+        }
+      });
+
+      kabKotaSelect.addEventListener("change", () => {
+        const propinsi = propinsiSelect.value;
+        const kabKota = kabKotaSelect.value;
+        kecamatanSelect.innerHTML =
+          '<option selected disabled value="">Pilih Kecamatan</option>';
+        kelurahanSelect.innerHTML =
+          '<option selected disabled value="">Pilih Kelurahan/Desa</option>';
+        kecamatanSelect.disabled = true;
+        kelurahanSelect.disabled = true;
+
+        if (kabKota && locationData[propinsi][kabKota]) {
+          for (const kecamatan in locationData[propinsi][kabKota]) {
+            const option = document.createElement("option");
+            option.value = kecamatan;
+            option.textContent = kecamatan;
+            kecamatanSelect.appendChild(option);
+          }
+          kecamatanSelect.disabled = false;
+        }
+      });
+
+      kecamatanSelect.addEventListener("change", () => {
+        const propinsi = propinsiSelect.value;
+        const kabKota = kabKotaSelect.value;
+        const kecamatan = kecamatanSelect.value;
+        kelurahanSelect.innerHTML =
+          '<option selected disabled value="">Pilih Kelurahan/Desa</option>';
+        kelurahanSelect.disabled = true;
+
+        if (kecamatan && locationData[propinsi][kabKota][kecamatan]) {
+          locationData[propinsi][kabKota][kecamatan].forEach((kelurahan) => {
+            const option = document.createElement("option");
+            option.value = kelurahan;
+            option.textContent = kelurahan;
+            kelurahanSelect.appendChild(option);
+          });
+          kelurahanSelect.disabled = false;
+        }
+      });
+
+      // Fungsi untuk mengisi form dengan data yang ditemukan
+      function isiForm(data) {
+        document.getElementById("nim").value = data.nim;
+        document.getElementById("nama").value = data.nama;
+        document.getElementById("tempatLahir").value = data.tempatLahir;
+        document.getElementById("tanggalLahir").value = data.tanggalLahir;
+        document.getElementById("jenisKelamin").value = data.jenisKelamin;
+        document.getElementById("namaIbu").value = data.namaIbu;
+        document.getElementById("nik").value = data.nik;
+        document.getElementById("nisn").value = data.nisn;
+        document.getElementById("alamat").value = data.alamat;
+        document.getElementById("propinsi").value = data.propinsi;
+
+        const propinsiEvent = new Event("change");
+        propinsiSelect.dispatchEvent(propinsiEvent);
+        kabKotaSelect.value = data.kabKota;
+
+        const kabKotaEvent = new Event("change");
+        kabKotaSelect.dispatchEvent(kabKotaEvent);
+        kecamatanSelect.value = data.kecamatan;
+
+        const kecamatanEvent = new Event("change");
+        kecamatanSelect.dispatchEvent(kecamatanEvent);
+        kelurahanSelect.value = data.kelurahan;
+
+        document.getElementById("rt").value = data.rt;
+        document.getElementById("rw").value = data.rw;
+        document.getElementById("kodePos").value = data.kodePos;
+        document.getElementById("jenisTinggal").value = data.jenisTinggal;
+        document.getElementById("alatTransportasi").value =
+          data.alatTransportasi;
+        document.getElementById("golonganDarah").value = data.golonganDarah;
+        document.getElementById("agama").value = data.agama;
+      }
+
+      // Fungsi pencarian berdasarkan NIM
+      function cariData() {
+        const searchNIM = document.getElementById("searchNIM").value;
+        const searchError = document.getElementById("searchNIM-error");
+
+        if (!/^\d{11}$/.test(searchNIM)) {
+          searchError.style.display = "block";
+          return;
+        } else {
+          searchError.style.display = "none";
+        }
+
+        const data = mahasiswaData.find((item) => item.nim === searchNIM);
+
+        if (data) {
+          isiForm(data);
+        } else {
+          alert("Data dengan NIM tersebut tidak ditemukan!");
+          resetForm();
+        }
+      }
+
+      // Simpan Data
+      function simpanData() {
+        const nim = document.getElementById("nim").value;
+        const nama = document.getElementById("nama").value;
+        const tempatLahir = document.getElementById("tempatLahir").value;
+        const tanggalLahir = document.getElementById("tanggalLahir").value;
+        const jenisKelamin = document.getElementById("jenisKelamin").value;
+        const namaIbu = document.getElementById("namaIbu").value;
+        const nik = document.getElementById("nik").value;
+        const nisn = document.getElementById("nisn").value;
+        const alamat = document.getElementById("alamat").value;
+        const propinsi = document.getElementById("propinsi").value;
+        const kabKota = document.getElementById("kabKota").value;
+        const kecamatan = document.getElementById("kecamatan").value;
+        const kelurahan = document.getElementById("kelurahan").value;
+        const rt = document.getElementById("rt").value;
+        const rw = document.getElementById("rw").value;
+        const kodePos = document.getElementById("kodePos").value;
+        const jenisTinggal = document.getElementById("jenisTinggal").value;
+        const alatTransportasi =
+          document.getElementById("alatTransportasi").value;
+        const golonganDarah = document.getElementById("golonganDarah").value;
+        const agama = document.getElementById("agama").value;
+
+        // Validation
+        const forms = [
+          document.getElementById("formMahasiswa"),
+          document.getElementById("formDataMahasiswa"),
+        ];
+        let isValid = true;
+        forms.forEach((form) => {
+          if (!form.checkValidity()) {
+            form.querySelectorAll(":invalid").forEach((input) => {
+              input.nextElementSibling.style.display = "block";
+            });
+            isValid = false;
+          }
+        });
+
+        if (!isValid) {
+          alert("Harap lengkapi dan perbaiki semua field!");
+          return;
+        }
+
+        // Simpan data ke localStorage
+        const data = {
+          nim,
+          nama,
+          tempatLahir,
+          tanggalLahir,
+          jenisKelamin,
+          namaIbu,
+          nik,
+          nisn,
+          alamat,
+          propinsi,
+          kabKota,
+          kecamatan,
+          kelurahan,
+          rt,
+          rw,
+          kodePos,
+          jenisTinggal,
+          alatTransportasi,
+          golonganDarah,
+          agama,
+        };
+
+        const existingIndex = mahasiswaData.findIndex(
+          (item) => item.nim === nim
+        );
+        if (existingIndex !== -1) {
+          mahasiswaData[existingIndex] = data;
+        } else {
+          mahasiswaData.push(data);
+        }
+        localStorage.setItem("mahasiswaData", JSON.stringify(mahasiswaData));
+
+        alert("Data berhasil disimpan!");
+        resetForm(); // Reset form setelah simpan
+      }
+    </script>
+  </body>
+</html>

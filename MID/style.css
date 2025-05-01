@@ -1,0 +1,103 @@
+/* Style untuk body dan layout */
+body {
+  background-color: #f8f9fa;
+  font-family: "Roboto", sans-serif;
+}
+
+.container {
+  margin-top: 30px;
+}
+
+.card {
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  font-size: 1.8rem;
+  color: #007bff;
+  text-align: center;
+  margin-bottom: 15px;
+  font-family: "Tagesschrift", system-ui;
+}
+
+p {
+  text-align: center;
+  color: #6c757d;
+  font-size: 1rem;
+  margin-bottom: 20px;
+}
+
+.nav-tabs .nav-link {
+  border-radius: 30px;
+  color: #007bff;
+  font-weight: bold;
+}
+
+.nav-tabs .nav-link.active {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+/* Style untuk form input */
+.form-label {
+  font-weight: bold;
+  color: #495057;
+}
+
+.form-control {
+  border-radius: 8px;
+  border: 1px solid #ced4da;
+  padding: 10px;
+}
+
+.form-control:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+textarea.form-control {
+  resize: vertical;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #004085;
+}
+
+.nav-tabs {
+  margin-bottom: 20px;
+}
+
+.tab-pane {
+  padding: 20px;
+}
+
+/* Styling untuk hasil output */
+#hasilData {
+  background-color: #f1f1f1;
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 30px;
+}
+
+#hasilData h4 {
+  font-size: 1.6rem;
+  color: #28a745;
+}
+
+#hasilData p {
+  font-size: 1rem;
+  color: #343a40;
+}
